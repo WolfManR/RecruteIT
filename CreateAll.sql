@@ -72,7 +72,7 @@ after update
 as
 	insert into dbo.EventLog(Description)
 	select 'Product Updated ' + e.Name 
-	from UPDATED as e
+	from INSERTED as e
 
 go
 
@@ -102,7 +102,7 @@ after update
 as
 	insert into dbo.EventLog(Description)
 	select 'ProductVersion Updated ' + e.Name 
-	from UPDATED as e
+	from INSERTED as e
 
 go
 
@@ -155,4 +155,8 @@ values
 ('F0244487-465B-42F4-99E6-E424D9694D94', 'Pizza', 'The Apollotech B340', 7, 1, 5),
 ('B4EB6FC3-B87E-4740-B467-4D0FF219EE4B', 'Towels', 'The beautiful range', 8, 4, 2)
 
+go
+
+-- Because we already add test data there exist point to add auto generating key value for product table
+alter table dbo.Product add constraint df_primaryKey default newid() for ID;
 go
